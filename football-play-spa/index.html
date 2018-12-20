@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API Calls with Vue</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <div id="app">
+
+    <h1 v-html="heading"></h1>
+    <form v-on:submit.prevent="processData('token')">
+
+    <p>
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" v-model.lazy="form.name">
+    </p>
+
+    <p>
+      <label for="presenterEmail">Email</label>
+      <input type="text" name="presenterEmail" id="presenterEmail" v-model="form.presenterEmail">
+    </p>
+
+    <p>
+      <label for="talkTitle">Title</label>
+      <input type="text"  v-model="form.talkTitle">
+    </p>
+
+    <p>
+      <label for="track">Track</label>
+      <br/>
+
+        <label v-for="option in options" >
+          <input type="checkbox" :value="option" v-model="form.track"/>
+          {{ option }}
+          <br/>
+        </label>
+    </p>
+
+
+    </p>
+
+    <p>
+      <input type="submit" value="Submit">
+    </p>
+    </form>
+    <h2>In-browser form data</h2>
+
+    <p>{{form.name}}</p>
+
+    <p>{{form.presenterEmail}}</p>
+    <p>{{form.talkTitle}}</p>
+    <p>{{form.track}}</p>
+
+    <h2>API calls</h2>
+    <p>Fetched Data raw: {{ fetchedData }}</p>
+    <p>Fetched Data HTML: <span v-html="fetchedData"></span></p>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+          heading: '<i>Enter your presentation details</i>',
+          options: [
+              'Java',
+              'Web Dev',
+              'Machine Learning'
+          ],
+          form : {
+              name: 'Pratik',
+              presenterEmail: 'pratik@noemail.com',
+              talkTitle: 'Serverless Architecture',
+              track: []
+          },
+          fetchedData : "nothing fetched yet",
+          getUrl: "https://openwhisk.ng.bluemix.net/api/v1/web/pratik.r.patel%40gmail.com_ServerlessArchitectureDemo1/demo/webHello.json",
+          postUrl: "https://openwhisk.ng.bluemix.net/api/v1/web/pratik.r.patel%40gmail.com_ServerlessArchitectureDemo1/demo/webHello.json"
+      },
+        methods:  {
+            processData: function(token, event){
+                console.log(this.form);
+                var that = this;
+                axios.post(this.postUrl, {name: this.form.name})
+                    .then(function(response) {
+                        console.log('result', response)
+                        that.fetchedData = response.data.body;
+                })
+            .catch(function(err){
+                    console.log(err);
+                })
+            }
+        },
+        created () {
+            var that = this;
+            axios.get(this.getUrl)
+                .then(function (response) {
+                    that.fetchedData = response.data.body
+                })
+        }
+    })
+  </script>
+  <style>
+    h1, h2 {
+      font-weight: bold;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      display: inline-block;
+      margin: 0 10px;
+    }
+    a {
+      color: #42b983;
+    }
+    .logo {
+      width: 50px;
+    }
+
+    .hide {
+      display: none;
+    }
+  </style>
+</body>
+</html>	
