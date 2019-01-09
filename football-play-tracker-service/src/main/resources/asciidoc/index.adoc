@@ -28,15 +28,3 @@ operation::add-movie[snippets='request-fields,response-fields,curl-request,http-
 Example of a `POST` request where client sends business errors
 
 operation::add-movie-error[snippets='response-fields,curl-request,http-response']
-
-== Find movies by genre and run length
-
-A `GET` request to retrieve all movies by run length and genre
-
-operation::find-movies-by-genre-run-length[snippets='request-parameters,response-fields,curl-request,http-response']
-
-== Find movies by title
-
-A `GET` request to retrieve all movies by title
-
-operation::find-movies-by-title[snippets='request-parameters,response-fields,curl-request,http-response']

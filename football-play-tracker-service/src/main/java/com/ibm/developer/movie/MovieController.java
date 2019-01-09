@@ -1,5 +1,6 @@
 package com.ibm.developer.movie;
 
+import java.net.URI;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -32,8 +33,9 @@ public class MovieController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Movie> addMovie(@RequestBody Movie footballPlay) {
-		return ResponseEntity.ok(service.addMovie(footballPlay));
+	public ResponseEntity<?> addMovie(@RequestBody Movie movie) {
+		service.addMovie(movie);
+		return ResponseEntity.created(URI.create("/api/v1/movies" + movie.getId())).build();
 	}
 
 	@ExceptionHandler(ClientException.class)

@@ -1,57 +1,83 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Movie Tracker</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-</head>
+	<head>
+		<title>Movie Tracker</title>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<style>
+			h1, h2 {
+				font-weight: bold;
+			}
+			
+			ul {
+				list-style-type: none;
+				padding: 0;
+			}
+			
+			li {
+				display: inline-block;
+				margin: 0 10px;
+			}
+			
+			a {
+				color: #42b983;
+			}
+			
+			.logo {
+				width: 50px;
+			}
+			
+			.hide {
+				display: none;
+			}
+		</style>
+	</head>
 <body>
-  <div id="app">
+	<div id="app">
 
-    <h1 v-html="heading"></h1>
-    <form v-on:submit.prevent="processData('token')">
+		<h1 v-html="heading"></h1>
+		<form v-on:submit.prevent="processData('token')">
 
-    <p>
-      <label for="movieName">Movie name</label>
-      <input type="text" name="movieName" id="movieName" v-model.lazy="form.movieName">
-    </p>
+			<p>
+				<label for="movieName">Movie name</label> <input type="text"
+					name="movieName" id="movieName" v-model.lazy="form.movieName">
+			</p>
 
-    <p>
-      <label for="genre">Genre</label>
-      <input type="text" name="genre" id="genre" v-model="form.genre">
-    </p>
+			<p>
+				<label for="genre">Genre</label> <input type="text" name="genre"
+					id="genre" v-model="form.genre">
+			</p>
 
-    <p>
-      <label for="yearReleased">Year Released</label>
-      <input type="text" name="yearReleased" id="yearReleased" v-model="form.yearReleased">
-    </p>
+			<p>
+				<label for="yearReleased">Year Released</label> <input type="text"
+					name="yearReleased" id="yearReleased" v-model="form.yearReleased">
+			</p>
 
-    <p>
-      <label for="runtime">Runtime</label>
-      <input type="text" name="runtime" id="runtime" v-model="form.runtime">
-    </p>
+			<p>
+				<label for="runtime">Runtime</label> <input type="text"
+					name="runtime" id="runtime" v-model="form.runtime">
+			</p>
 
+			<p>
+				<input type="submit" value="Submit">
+			</p>
+		</form>
+		<h2>In-browser form data</h2>
 
-    </p>
+		<p>{{form.movieName}}</p>
 
-    <p>
-      <input type="submit" value="Submit">
-    </p>
-    </form>
-    <h2>In-browser form data</h2>
+		<p>{{form.genre}}</p>
+		<p>{{form.yearReleased}}</p>
+		<p>{{form.runtime}}</p>
 
-    <p>{{form.movieName}}</p>
+		<h2>API calls</h2>
+		<p>Fetched Data raw: {{ fetchedData }}</p>
+		<p>
+			Fetched Data HTML: <span v-html="fetchedData"></span>
+		</p>
+	</div>
 
-    <p>{{form.genre}}</p>
-    <p>{{form.yearReleased}}</p>
-    <p>{{form.runtime}}</p>
-
-    <h2>API calls</h2>
-    <p>Fetched Data raw: {{ fetchedData }}</p>
-    <p>Fetched Data HTML: <span v-html="fetchedData"></span></p>
-  </div>
-
-  <script>
+	<script>
     var app = new Vue({
       el: '#app',
       data: {
@@ -94,28 +120,6 @@
         }
     })
   </script>
-  <style>
-    h1, h2 {
-      font-weight: bold;
-    }
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    li {
-      display: inline-block;
-      margin: 0 10px;
-    }
-    a {
-      color: #42b983;
-    }
-    .logo {
-      width: 50px;
-    }
 
-    .hide {
-      display: none;
-    }
-  </style>
 </body>
-</html>	
+</html>

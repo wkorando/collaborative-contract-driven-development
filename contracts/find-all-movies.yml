@@ -1,0 +1,16 @@
+description: Returns all current info on all stored movies
+request:
+  method: GET
+  url: /api/v1/movies 
+  headers:
+    Content-Type: application/json
+response:
+  status: 200
+  body: '{
+    "movieName" : "Independence Day",
+    "genre" : "Action",
+    "releaseYear" : "1996",
+    "runtime" : "145",
+   }'
+  headers:
+    Content-Type: application/json;charset=UTF-8

@@ -21,6 +21,17 @@ public class Movie {
 	@Column(name = "RUNTIME")
 	private int runtime;
 
+	public Movie() {
+	}
+
+	public Movie(long id, String movieName, String genre, int yearReleased, int runtime) {
+		this.id = id;
+		this.movieName = movieName;
+		this.genre = genre;
+		this.yearReleased = yearReleased;
+		this.runtime = runtime;
+	}
+
 	public long getId() {
 		return id;
 	}

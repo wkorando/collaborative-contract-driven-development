@@ -1,3 +1,4 @@
+description: Example of attempt to add a new movie failing due to client errors
 request:
   method: POST
   url: /api/v1/movies

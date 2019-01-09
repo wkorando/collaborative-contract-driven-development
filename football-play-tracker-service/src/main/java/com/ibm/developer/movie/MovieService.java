@@ -11,8 +11,13 @@ public class MovieService {
 		this.repo = repo;
 	}
 
+	public Iterable<Movie> allMovies(){
+		return repo.findAll();
+	}
+	
 	public Movie addMovie(Movie movie) {
-		return null;
+		//TODO: Implement call to database
+		return movie;
 	}
 	
 	

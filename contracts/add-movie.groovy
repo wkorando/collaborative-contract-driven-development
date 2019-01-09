@@ -15,9 +15,6 @@ Contract.make {
     }
     response {
         status 201
-        body([ 
-    		   
-		])
 		headers { 
 			header(HttpHeaders.LOCATION, 'footballplays/1'
 				   HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE)
