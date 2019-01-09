@@ -1,4 +1,4 @@
-package com.developer.ibm.football.footballplaytrackerservice;
+package com.ibm.developer.movie;
 
 public class ClientException extends RuntimeException {
 

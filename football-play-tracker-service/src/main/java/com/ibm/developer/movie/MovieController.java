@@ -1,4 +1,4 @@
-package com.developer.ibm.football.footballplaytrackerservice;
+package com.ibm.developer.movie;
 
 import java.util.Optional;
 
@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/footballplays")
-public class FootballPlayController {
+@RestController("/api/v1/movies")
+public class MovieController {
 
-	private FootballPlayRepo repo;
-	private FootballPlayService service;
+	private MovieRepo repo;
+	private MovieService service;
 
 	@GetMapping
-	public ResponseEntity<Iterable<FootballPlay>> findAll() {
+	public ResponseEntity<Iterable<Movie>> findAll() {
 		return ResponseEntity.ok(repo.findAll());
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<FootballPlay> findOne(long id) {
-		Optional<FootballPlay> footballPlay = repo.findById(id);
+	public ResponseEntity<Movie> findOne(long id) {
+		Optional<Movie> footballPlay = repo.findById(id);
 		if (footballPlay.isPresent()) {
 			return ResponseEntity.ok(footballPlay.get());
 		} else {
@@ -32,8 +32,8 @@ public class FootballPlayController {
 	}
 
 	@PostMapping
-	public ResponseEntity<FootballPlay> addFootballPlay(@RequestBody FootballPlay footballPlay) {
-		return ResponseEntity.ok(service.addFootballPlay(footballPlay));
+	public ResponseEntity<Movie> addMovie(@RequestBody Movie footballPlay) {
+		return ResponseEntity.ok(service.addMovie(footballPlay));
 	}
 
 	@ExceptionHandler(ClientException.class)

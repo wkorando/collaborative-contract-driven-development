@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>API Calls with Vue</title>
+  <title>Movie Tracker</title>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
@@ -12,29 +12,23 @@
     <form v-on:submit.prevent="processData('token')">
 
     <p>
-      <label for="name">Name</label>
-      <input type="text" name="name" id="name" v-model.lazy="form.name">
+      <label for="movieName">Movie name</label>
+      <input type="text" name="movieName" id="movieName" v-model.lazy="form.movieName">
     </p>
 
     <p>
-      <label for="presenterEmail">Email</label>
-      <input type="text" name="presenterEmail" id="presenterEmail" v-model="form.presenterEmail">
+      <label for="genre">Genre</label>
+      <input type="text" name="genre" id="genre" v-model="form.genre">
     </p>
 
     <p>
-      <label for="talkTitle">Title</label>
-      <input type="text"  v-model="form.talkTitle">
+      <label for="yearReleased">Year Released</label>
+      <input type="text" name="yearReleased" id="yearReleased" v-model="form.yearReleased">
     </p>
 
     <p>
-      <label for="track">Track</label>
-      <br/>
-
-        <label v-for="option in options" >
-          <input type="checkbox" :value="option" v-model="form.track"/>
-          {{ option }}
-          <br/>
-        </label>
+      <label for="runtime">Runtime</label>
+      <input type="text" name="runtime" id="runtime" v-model="form.runtime">
     </p>
 
 
@@ -46,11 +40,11 @@
     </form>
     <h2>In-browser form data</h2>
 
-    <p>{{form.name}}</p>
+    <p>{{form.movieName}}</p>
 
-    <p>{{form.presenterEmail}}</p>
-    <p>{{form.talkTitle}}</p>
-    <p>{{form.track}}</p>
+    <p>{{form.genre}}</p>
+    <p>{{form.yearReleased}}</p>
+    <p>{{form.runtime}}</p>
 
     <h2>API calls</h2>
     <p>Fetched Data raw: {{ fetchedData }}</p>
@@ -61,21 +55,21 @@
     var app = new Vue({
       el: '#app',
       data: {
-          heading: '<i>Enter your presentation details</i>',
+          heading: '<i>Enter a new movie</i>',
           options: [
-              'Java',
-              'Web Dev',
-              'Machine Learning'
+              'Action',
+              'Drama',
+              'Comedy'
           ],
           form : {
-              name: 'Pratik',
-              presenterEmail: 'pratik@noemail.com',
-              talkTitle: 'Serverless Architecture',
-              track: []
+              movieName: 'Predator',
+              genre: 'Action',
+              yearReleased: '1987',
+              runtime: 107
           },
           fetchedData : "nothing fetched yet",
-          getUrl: "https://openwhisk.ng.bluemix.net/api/v1/web/pratik.r.patel%40gmail.com_ServerlessArchitectureDemo1/demo/webHello.json",
-          postUrl: "https://openwhisk.ng.bluemix.net/api/v1/web/pratik.r.patel%40gmail.com_ServerlessArchitectureDemo1/demo/webHello.json"
+          getUrl: "http://localhost:8080/movieTracker/api/v1/movies",
+          postUrl: "http://localhost:8080/movieTracker/api/v1/movies"
       },
         methods:  {
             processData: function(token, event){

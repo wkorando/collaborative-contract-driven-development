@@ -1,0 +1,25 @@
+request:
+  method: POST
+  url: /api/v1/movies
+  body:
+    "id": 1
+    distance: 0
+    playerName: ""
+    distance: 0
+    distance: 0
+  headers:
+    Content-Type: application/json
+  matchers:
+    body:
+      - path: $.['yearReleased']
+        type: by_regex
+        value: "[0-9]{4}"
+      - path: $.['runtime']
+        type: by_regex
+        value: "[0-9]{3}"
+response:
+  status: 400
+  body:
+    errorMessages: ["Runtime must be numeric"]
+  headers:
+    Content-Type: application/json;charset=UTF-8

@@ -1,13 +1,13 @@
-package com.developer.ibm.football.footballplaytrackerservice;
+package com.ibm.developer.movie;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FootballPlayTrackerServiceApplication {
+public class MovieServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FootballPlayTrackerServiceApplication.class, args);
+		SpringApplication.run(MovieServiceApplication.class, args);
 	}
 
 }
