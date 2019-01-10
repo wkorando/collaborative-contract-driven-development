@@ -2,32 +2,18 @@
 
 set -o errexit
 
-SC_CONTRACT_DOCKER_VERSION="${SC_CONTRACT_DOCKER_VERSION:-2.0.2.BUILD-SNAPSHOT}"
-APP_IP="$( ./whats_my_ip.sh )"
-APP_PORT="${APP_PORT:-8080}"
-ARTIFACTORY_PORT="${ARTIFACTORY_PORT:-8081}"
-APPLICATION_BASE_URL="http://${APP_IP}:${APP_PORT}"
-ARTIFACTORY_URL="http://${APP_IP}:${ARTIFACTORY_PORT}/artifactory/libs-release-local"
 CURRENT_DIR="$( pwd )"
-PROJECT_NAME="${PROJECT_NAME:-movies-service"
-PROJECT_GROUP="${PROJECT_GROUP:-com.ibm.developer}"
-PROJECT_VERSION="${PROJECT_VERSION:-0.0.1.RELEASE}"
-# External repo
-EXTERNAL_CONTRACTS_ARTIFACT_ID="${EXTERNAL_CONTRACTS_ARTIFACT_ID:-external-contracts}"
-EXTERNAL_CONTRACTS_GROUP_ID="${EXTERNAL_CONTRACTS_GROUP_ID:-com.ibm.developer}"
-EXTERNAL_CONTRACTS_VERSION="${EXTERNAL_CONTRACTS_VERSION:-+}"
-EXTERNAL_CONTRACTS_CLASSIFIER="${EXTERNAL_CONTRACTS_CLASSIFIER:-}"
-# you can mount your .m2 as a volume and point the plugin to work offline
-EXTERNAL_CONTRACTS_WORK_OFFLINE="${EXTERNAL_CONTRACTS_WORK_OFFLINE:-false}"
+SC_CONTRACT_DOCKER_VERSION="${SC_CONTRACT_DOCKER_VERSION:-2.0.2.BUILD-SNAPSHOT}"
 
-echo "Sc Contract Version [${SC_CONTRACT_DOCKER_VERSION}]"
-echo "Application URL [${APPLICATION_BASE_URL}]"
-echo "Artifactory URL [${ARTIFACTORY_URL}]"
-echo "Project Version [${PROJECT_VERSION}]"
+# Stub coordinates 'groupId:artifactId:version:classifier'
+STUB_GROUP="${STUB_GROUP:-com.ibm-developer}"
+STUB_ARTIFACT="${STUB_ARTIFACT:-movie-service}"
+STUB_VERSION="${STUB_VERSION:-0.0.1-SNAPSHOT}"
+STUB_PORT="9876"
 
-# If you want to work offline just attach this volume
-# -v "${HOME}/.m2/:/root/.m2:ro"
-mkdir -p build/spring-cloud-contract/output
-docker run  --rm -e "APPLICATION_BASE_URL=${APPLICATION_BASE_URL}" -e "PUBLISH_ARTIFACTS=true" -e "PROJECT_NAME=${PROJECT_NAME}" -e "PROJECT_GROUP=${PROJECT_GROUP}" -e "REPO_WITH_BINARIES_URL=${ARTIFACTORY_URL}" -e "PROJECT_VERSION=${PROJECT_VERSION}" -e "EXTERNAL_CONTRACTS_ARTIFACT_ID=${EXTERNAL_CONTRACTS_ARTIFACT_ID}" -e "EXTERNAL_CONTRACTS_GROUP_ID=${EXTERNAL_CONTRACTS_GROUP_ID}" -e "EXTERNAL_CONTRACTS_VERSION=${EXTERNAL_CONTRACTS_VERSION}" -e "EXTERNAL_CONTRACTS_CLASSIFIER=${EXTERNAL_CONTRACTS_CLASSIFIER}" -e "EXTERNAL_CONTRACTS_WORK_OFFLINE=${EXTERNAL_CONTRACTS_WORK_OFFLINE}" -v "${CURRENT_DIR}/build/spring-cloud-contract/output:/spring-cloud-contract-output/" springcloud/spring-cloud-contract:"${SC_CONTRACT_DOCKER_VERSION}"
+# Spring Cloud Contract Stub Runner properties
+STUBRUNNER_PORT="${STUBRUNNER_PORT:-8080}"
+STUBRUNNER_IDS="${STUB_GROUP}:${STUB_ARTIFACT}:${STUB_VERSION}:stubs:${STUB_PORT}"
+STUBRUNNER_REPOSITORY_ROOT="git://https://github.com/wkorando/collaborative-ccd-contracts.git"
 
-docker run --rm -v "${CURRENT_DIR}/build/spring-cloud-contract/output:/spring-cloud-contract-output/" springcloud/spring-cloud-contract:"${SC_CONTRACT_DOCKER_VERSION}" chown -R $(id -u):$(id -g) "/spring-cloud-contract-output/"
+docker run  --rm -e "STUBRUNNER_IDS=${STUBRUNNER_IDS}" -e "STUBRUNNER_STUBS_MODE=LOCAL" -e "SERVER_PORT=${STUBRUNNER_PORT}" -e "STUBRUNNER_REPOSITORY_ROOT=${STUBRUNNER_REPOSITORY_ROOT}" -p "${STUBRUNNER_PORT}:${STUBRUNNER_PORT}" -p "${STUB_PORT}:${STUB_PORT}" -v "${CURRENT_DIR}/build/contracts_git/:/contracts_git:rw" springcloud/spring-cloud-contract-stub-runner:"${SC_CONTRACT_DOCKER_VERSION}"

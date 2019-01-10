@@ -55,6 +55,11 @@
 			<artifactId>mockito-core</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -82,13 +87,13 @@
 				<extensions>true</extensions>
 				<configuration>
 					<configuration>
-						<contractsRepositoryUrl>git://https://github.com/wkorando/collaborative-ccd-contracts.git</contractsRepositoryUrl>
+<!-- 						<contractsRepositoryUrl>git://https://github.com/wkorando/collaborative-ccd-contracts.git</contractsRepositoryUrl> -->
 						<contractDependency>
 							<groupId>${project.groupId}</groupId>
 							<artifactId>${project.artifactId}</artifactId>
 							<version>${project.version}</version>
 						</contractDependency>
-						<contractsMode>LOCAL</contractsMode>
+<!-- 						<contractsMode>REMOTE</contractsMode> -->
 					</configuration>
 					<baseClassForTests>com.ibm.developer.movie.BaseClass</baseClassForTests>
 				</configuration>
@@ -127,25 +132,6 @@
 						<version>${spring-restdocs.version}</version>
 					</dependency>
 				</dependencies>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>stub</id>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<attach>true</attach>
-							<descriptors>
-								<descriptor>src/main/assembly/stub.xml</descriptor>
-							</descriptors>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>

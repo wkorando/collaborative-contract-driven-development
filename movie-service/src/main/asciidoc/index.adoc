@@ -17,14 +17,10 @@ Billy Korando;
 
 A `GET` request to retrieve all movies
 
-operation::find-all-movies[snippets='response-fields,curl-request,http-response,response-fields']
+operation::ContractVerifierTest_validate_find_all_movies[snippets='curl-request,http-response']
 
 == Add a movie
 
 A `POST` request to add a new movie to the catalog
 
-operation::add-movie[snippets='request-fields,response-fields,curl-request,http-response']
-
-Example of a `POST` request where client sends business errors
-
-operation::add-movie-error[snippets='response-fields,curl-request,http-response']
+operation::ContractVerifierTest_validate_add_movie[snippets='curl-request,http-response']

@@ -9,13 +9,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/api/v1/movies")
+@RestController
+@RequestMapping("/api/v1/movies")
 public class MovieController {
 
 	private MovieRepo repo;
 	private MovieService service;
+
+	public MovieController(MovieRepo repo, MovieService service) {
+		this.repo = repo;
+		this.service = service;
+	}
 
 	@GetMapping
 	public ResponseEntity<Iterable<Movie>> findAll() {
@@ -34,8 +41,7 @@ public class MovieController {
 
 	@PostMapping
 	public ResponseEntity<?> addMovie(@RequestBody Movie movie) {
-		service.addMovie(movie);
-		return ResponseEntity.created(URI.create("/api/v1/movies" + movie.getId())).build();
+		return ResponseEntity.created(URI.create("/api/v1/movies/" + service.addMovie(movie).getId())).build();
 	}
 
 	@ExceptionHandler(ClientException.class)
