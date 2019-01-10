@@ -9,11 +9,11 @@
 		<version>2.1.1.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.developer.ibm.football</groupId>
-	<artifactId>football-play-tracker-service</artifactId>
+	<groupId>com.ibm.developer</groupId>
+	<artifactId>movie-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>football-play-tracker-service</name>
-	<description>Demo project for Spring Boot</description>
+	<name>movie-service</name>
+	<description>Demo project for contract driven development</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -82,11 +82,26 @@
 				<extensions>true</extensions>
 				<configuration>
 					<configuration>
-						<contractsMode>REMOTE</contractsMode>
-						<contractsRepositoryUrl>https://github.com/wkorando/collaborative-contract-driven-development/tree/master/contracts</contractsRepositoryUrl>
+						<contractsRepositoryUrl>git://https://github.com/wkorando/collaborative-ccd-contracts.git</contractsRepositoryUrl>
+						<contractDependency>
+							<groupId>${project.groupId}</groupId>
+							<artifactId>${project.artifactId}</artifactId>
+							<version>${project.version}</version>
+						</contractDependency>
+						<contractsMode>LOCAL</contractsMode>
 					</configuration>
-					<baseClassForTests>com.ps.bk.hotel.booking.BaseClass</baseClassForTests>
+					<baseClassForTests>com.ibm.developer.movie.BaseClass</baseClassForTests>
 				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<!-- By default we will not push the stubs back to SCM, you have to 
+								explicitly add it as a goal -->
+							<goal>pushStubsToScm</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.asciidoctor</groupId>
@@ -123,7 +138,6 @@
 						<goals>
 							<goal>single</goal>
 						</goals>
-						<!-- <inherited>false</inherited> -->
 						<configuration>
 							<attach>true</attach>
 							<descriptors>

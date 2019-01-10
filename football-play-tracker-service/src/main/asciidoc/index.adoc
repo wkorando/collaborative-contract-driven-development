@@ -13,7 +13,7 @@ Billy Korando;
 = Overview
 
 [[resources-tag-retrieve]]
-== Get all movies
+== Retrieve all movies
 
 A `GET` request to retrieve all movies
 
@@ -21,7 +21,7 @@ operation::find-all-movies[snippets='response-fields,curl-request,http-response,
 
 == Add a movie
 
-A `POST` request to a add a new movie to the catalog
+A `POST` request to add a new movie to the catalog
 
 operation::add-movie[snippets='request-fields,response-fields,curl-request,http-response']
 
